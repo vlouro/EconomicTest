@@ -30,6 +30,13 @@ class ReceiptListViewController: UIViewController, UICollectionViewDataSource, U
         setupCollectionView()
         setupNavigationBar()
         setupPlaceholder()
+        
+        receiptListViewModel.onChange = { [weak self] in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+                self?.placeholderLabel.isHidden = self?.receiptListViewModel.numberOfReceipts() ?? 0 > 0
+            }
+        }
     }
     
     private func setupCollectionView() {
@@ -56,6 +63,11 @@ class ReceiptListViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     private func setupNavigationBar() {
+        let appearance = UINavigationBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                appearance.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.7)
+                navigationController?.navigationBar.standardAppearance = appearance
+                navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addReceipt))
     }
     
@@ -68,8 +80,8 @@ class ReceiptListViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     @objc private func addReceipt() {
-        //let addVC = AddReceiptViewController()
-        //present(addVC, animated: true)
+        let addVC = NewReceiptViewController()
+        navigationController?.pushViewController(addVC, animated: true)
     }
     
     // MARK: - UICollectionViewDataSource
@@ -80,10 +92,10 @@ class ReceiptListViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReceiptCollectionViewCell.identifier, for: indexPath) as? ReceiptCollectionViewCell,
-              let receipt = receiptListViewModel.receipt(at: indexPath.row) else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReceiptCollectionViewCell.identifier, for: indexPath) as? ReceiptCollectionViewCell else {
             return UICollectionViewCell()
         }
+        let receipt = receiptListViewModel.receipts[indexPath.row]
         cell.configure(with: receipt)
         return cell
     }
@@ -95,8 +107,8 @@ class ReceiptListViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let receipt = receiptListViewModel.receipt(at: indexPath.row) else { return }
-        //let detailVC = ReceiptDetailViewController(receipt: receipt)
-        //navigationController?.pushViewController(detailVC, animated: true)
+        let receipt = receiptListViewModel.receipts[indexPath.row]
+        let detailVC = ReceiptDetailViewController(receipt: receipt)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
