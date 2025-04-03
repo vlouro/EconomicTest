@@ -10,7 +10,7 @@ import CoreData
 
 enum TestCoreDataHelper {
     
-    /// Clears all Receipt entities from the main context
+    // Clears all Receipt entities from the main context
     static func clearAllReceipts() {
         let context = CoreDataManager.shared.mainContext
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Receipts.fetchRequest()
@@ -24,6 +24,7 @@ enum TestCoreDataHelper {
         }
     }
     
+    // Makes a new Receipt model for testing
     static func makeTestReceiptModel(name: String, id: UUID, amount: Double, currency: String) -> Receipt {
         let model = Receipt(
             id: id,

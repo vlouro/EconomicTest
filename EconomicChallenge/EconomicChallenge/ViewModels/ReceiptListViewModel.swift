@@ -48,6 +48,7 @@ class ReceiptListViewModel: NSObject, NSFetchedResultsControllerDelegate {
         return receipts.count
     }
     
+    //Creates new receipt
     func createNewReceipt(at index: Int) -> Receipt? {
         guard let receipt = fetchedResultsController?.fetchedObjects?[index],
               let imageData = receipt.imageData,
@@ -67,6 +68,7 @@ class ReceiptListViewModel: NSObject, NSFetchedResultsControllerDelegate {
         )
     }
     
+    // Handle inserts, deletes, updates, or moves for individual receipts
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
                     didChange anObject: Any,
                     at indexPath: IndexPath?,

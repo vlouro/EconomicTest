@@ -10,9 +10,9 @@ import XCTest
 import CoreData
 
 final class ReceiptListViewModelTests: XCTestCase {
-
+    
     var listViewModel: ReceiptListViewModel!
-
+    
     override func setUp() {
         super.setUp()
         TestCoreDataHelper.clearAllReceipts()
@@ -22,12 +22,12 @@ final class ReceiptListViewModelTests: XCTestCase {
         TestCoreDataHelper.clearAllReceipts()
         super.tearDown()
     }
-
+    
     func testInitialReceiptCountIsZeroOrMore() {
         listViewModel = ReceiptListViewModel()
         XCTAssertGreaterThanOrEqual(listViewModel.numberOfReceipts(), 0)
     }
-
+    
     func testReceiptModelMapping() {
         let model = TestCoreDataHelper.makeTestReceiptModel(name: "Test Receipt", id: UUID(), amount: 9.99, currency: "Euro")
         let viewModel = ReceiptViewModel()
@@ -35,7 +35,7 @@ final class ReceiptListViewModelTests: XCTestCase {
             let context = CoreDataManager.shared.mainContext
             let request: NSFetchRequest<Receipts> = Receipts.fetchRequest()
             request.predicate = NSPredicate(format: "id == %@", model.id as CVarArg)
-
+            
             do {
                 let results = try context.fetch(request)
                 XCTAssertEqual(results.first?.nameReceipt, model.name)

@@ -8,7 +8,6 @@ import ImageIO
 import UIKit
 
 //Cell to display Receipt image and date
-
 class ReceiptCollectionViewCell: UICollectionViewCell {
     static let identifier = "ReceiptCollectionViewCell"
     
@@ -51,6 +50,7 @@ class ReceiptCollectionViewCell: UICollectionViewCell {
         ])
     }
     
+    //Configure the information by passing the Receipt model
     func configure(with model: Receipt) {
         dateLabel.text = DateFormatter.localizedString(from: model.date, dateStyle: .medium, timeStyle: .none)
         

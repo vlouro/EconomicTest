@@ -7,9 +7,11 @@
 
 import CoreData
 
+// Class to Manage the Core Data used throughout the app
 class CoreDataManager {
     static let shared = CoreDataManager()
-
+    
+    // Persistent container for the Core Data
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "EconomicChallenge")
         container.loadPersistentStores { _, error in
@@ -19,13 +21,13 @@ class CoreDataManager {
         }
         return container
     }()
-
+    
     var mainContext: NSManagedObjectContext {
         let context = persistentContainer.viewContext
-           context.automaticallyMergesChangesFromParent = true
-           return context
+        context.automaticallyMergesChangesFromParent = true
+        return context
     }
-
+    
     func newBackgroundContext() -> NSManagedObjectContext {
         return persistentContainer.newBackgroundContext()
     }

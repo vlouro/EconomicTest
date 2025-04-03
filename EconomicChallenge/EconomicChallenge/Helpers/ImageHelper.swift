@@ -8,13 +8,17 @@
 import UIKit
 import ImageIO
 
+//A class that provides image processing helpers
+
 class ImageHelper {
+    
+    //Downsamples large image data to a smaller target size
     static func downsample(imageData: Data, to pointSize: CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage? {
         let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
         guard let source = CGImageSourceCreateWithData(imageData as CFData, imageSourceOptions) else {
             return nil
         }
-
+        
         let maxDimension = max(pointSize.width, pointSize.height) * scale
         let downsampleOptions = [
             kCGImageSourceCreateThumbnailFromImageAlways: true,
@@ -22,11 +26,11 @@ class ImageHelper {
             kCGImageSourceCreateThumbnailWithTransform: true,
             kCGImageSourceThumbnailMaxPixelSize: maxDimension
         ] as CFDictionary
-
+        
         guard let cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, downsampleOptions) else {
             return nil
         }
-
+        
         return UIImage(cgImage: cgImage)
     }
 }

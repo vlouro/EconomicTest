@@ -25,7 +25,7 @@ class ReceiptListViewController: UIViewController, UICollectionViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Receipts"
-               title = "Receipts"
+        title = "Receipts"
         view.backgroundColor = .systemBackground
         setupCollectionView()
         setupNavigationBar()
@@ -64,11 +64,20 @@ class ReceiptListViewController: UIViewController, UICollectionViewDataSource, U
     
     private func setupNavigationBar() {
         let appearance = UINavigationBarAppearance()
-                appearance.configureWithOpaqueBackground()
-                appearance.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.7)
-                navigationController?.navigationBar.standardAppearance = appearance
-                navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addReceipt))
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.7)
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addReceipt))
+        addButton.tintColor = .black
+        navigationItem.rightBarButtonItem = addButton
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        
+        // Set arrow tint color
+        navigationController?.navigationBar.tintColor = .black
     }
     
     private func setupPlaceholder() {

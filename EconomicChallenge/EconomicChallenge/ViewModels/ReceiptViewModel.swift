@@ -7,10 +7,9 @@
 
 import UIKit
 
-// Handles saving receipts to Core Data from the UI
 class ReceiptViewModel {
     
-    /// Saves a ReceiptModel to Core Data using a background context
+    // Saves a ReceiptModel to Core Data using a background context
     func saveReceipt(_ model: Receipt, completion: (() -> Void)? = nil) {
         let context = CoreDataManager.shared.newBackgroundContext()
         
@@ -22,7 +21,7 @@ class ReceiptViewModel {
             receipt.amount = model.amount
             receipt.currency = model.currency
             receipt.imageData = model.image
-
+            
             do {
                 try context.save()
                 DispatchQueue.main.async {
