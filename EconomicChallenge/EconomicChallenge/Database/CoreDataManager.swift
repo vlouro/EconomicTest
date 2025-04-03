@@ -10,7 +10,7 @@ import CoreData
 class CoreDataManager {
     static let shared = CoreDataManager()
 
-    let persistentContainer: NSPersistentContainer = {
+    lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "EconomicChallenge")
         container.loadPersistentStores { _, error in
             if let error = error {

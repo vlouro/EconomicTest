@@ -13,5 +13,5 @@ struct Receipt {
     let date: Date
     let amount: Double
     let currency: String
-    let image: UIImage
+    let image: Data
 }

@@ -132,7 +132,9 @@ class NewReceiptViewController: UIViewController, UIImagePickerControllerDelegat
 
     // MARK: - Save Receipt
     @objc func saveReceipt() {
-        guard let image = imageView.image,
+        let resizedImage = imageView.image?.resized(to: CGSize(width: 300, height: 500))
+        
+        guard let image = resizedImage?.jpegData(compressionQuality: 0.7),
               let name = nameField.text, !name.trimmingCharacters(in: .whitespaces).isEmpty,
               let amountText = amountField.text, let amount = Double(amountText), amount > 0,
               let currency = currencyField.text, !currency.trimmingCharacters(in: .whitespaces).isEmpty,

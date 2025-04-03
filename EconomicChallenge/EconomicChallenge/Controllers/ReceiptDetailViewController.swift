@@ -42,7 +42,7 @@ class ReceiptDetailViewController: UIViewController {
         currencyLabel.translatesAutoresizingMaskIntoConstraints = false
 
         imageView.contentMode = .scaleAspectFit
-        imageView.image = receipt.image
+        imageView.image = UIImage(data: receipt.image)
 
         nameLabel.text = "Name: \(receipt.name)"
         amountLabel.text = "Amount: \(receipt.amount)"

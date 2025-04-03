@@ -21,7 +21,7 @@ class ReceiptViewModel {
             receipt.date = model.date
             receipt.amount = model.amount
             receipt.currency = model.currency
-            receipt.imageData = model.image.jpegData(compressionQuality: 0.8) ?? Data()
+            receipt.imageData = model.image
 
             do {
                 try context.save()

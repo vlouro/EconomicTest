@@ -51,7 +51,6 @@ class ReceiptListViewModel: NSObject, NSFetchedResultsControllerDelegate {
     func createNewReceipt(at index: Int) -> Receipt? {
         guard let receipt = fetchedResultsController?.fetchedObjects?[index],
               let imageData = receipt.imageData,
-              let image = UIImage(data: imageData),
               let id = receipt.id,
               let name = receipt.nameReceipt,
               let date = receipt.date,
@@ -64,7 +63,7 @@ class ReceiptListViewModel: NSObject, NSFetchedResultsControllerDelegate {
             date: date,
             amount: receipt.amount,
             currency: currency,
-            image: image
+            image: imageData
         )
     }
     
@@ -75,8 +74,8 @@ class ReceiptListViewModel: NSObject, NSFetchedResultsControllerDelegate {
                     newIndexPath: IndexPath?) {
         switch type {
         case .insert:
-            if let newReceipt = anObject as? Receipts, let imageData = newReceipt.imageData,
-               let image = UIImage(data: imageData),
+            if let newReceipt = anObject as? Receipts,
+               let image = newReceipt.imageData,
                let id = newReceipt.id,
                let name = newReceipt.nameReceipt,
                let date = newReceipt.date,
